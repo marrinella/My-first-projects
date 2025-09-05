@@ -28,38 +28,40 @@ def compare(user_score, computer_score):
     else:
         return "You lose"
 
+def game():
+    users_cards = []
+    computers_cards = []
+    computers_score = -1
+    users_score = -1
+    is_game_over = False
+    for _ in range(2):
+        users_cards.append(deal_card())
+        computers_cards.append(deal_card())
+    while not is_game_over:
+        users_score = calculating_score(users_cards)
+        computers_score = calculating_score(computers_cards)
+        print(f"Your cards are {users_cards} and your score is {users_score}.")
+        print(f"Computer's first card is {computers_cards[0]}")
 
-users_cards = []
-computers_cards = []
-computers_score = -1
-users_score = -1
-is_game_over = False
-for _ in range(2):
-    users_cards.append(deal_card())
-    computers_cards.append(deal_card())
-while not is_game_over:
-    users_score = calculating_score(users_cards)
-    computers_score = calculating_score(computers_cards)
-    print(f"Your cards are {users_cards} and your score is {users_score}.")
-    print(f"Computer's first card is {computers_cards[0]}")
-
-    if users_score == 0 or computers_score == 0 or users_score > 21:
-        is_game_over = True
-    else:
-        add_card = input("Do ypu want to add a card? Type 'y' if you do, type 'n' if you don't: ").lower()
-        if add_card == "y":
-            users_cards.append(deal_card())
-        else:
+        if users_score == 0 or computers_score == 0 or users_score > 21:
             is_game_over = True
-while computers_score != 0 and computers_score < 17:
-    computers_cards.append(deal_card())
-    computers_score = calculating_score(computers_cards)
+        else:
+            add_card = input("Do ypu want to add a card? Type 'y' if you do, type 'n' if you don't: ").lower()
+            if add_card == "y":
+                users_cards.append(deal_card())
+            else:
+                is_game_over = True
+    while computers_score != 0 and computers_score < 17:
+        computers_cards.append(deal_card())
+        computers_score = calculating_score(computers_cards)
 
-print(f"So here are your cards: {users_cards} and your final score if: {users_score}!")
-print(f"And here are the computer's cards: {computers_cards}, computer's score is: {computers_score}!")
-print(compare(users_score, computers_score))
+    print(f"So here are your cards: {users_cards} and your final score if: {users_score}!")
+    print(f"And here are the computer's cards: {computers_cards}, computer's score is: {computers_score}!")
+    print(compare(users_score, computers_score))
 
-
+while input("Do you want to play? Type 'y' or 'no': ") == "y":
+    print("\n" * 5)
+    game()
 
 
 
